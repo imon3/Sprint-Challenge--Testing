@@ -32,6 +32,16 @@ describe('server', () => {
                 .catch()
         });
 
+        it('should return an array', () => {
+            server.get('/games', (req, res) => {
+                let games = []
+                if (games.length === 0) {
+                    return res.status(200).json(games)
+                }
+                expect(res.body).toEqual([])
+            })
+        })
+
         // TEST POST REQUEST
         describe('Post /', () => {
             it('should return 201 created', () => {
@@ -59,7 +69,6 @@ describe('server', () => {
                     if (game.title === '' || game.genre === '') {
                         return res.status(422).json({ message: 'data missing' })
                     }
-
                     expect(res.status).toBe(422)
                 })
             })
